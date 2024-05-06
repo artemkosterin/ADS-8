@@ -35,24 +35,22 @@ int Train::getLength() {
     if (first == nullptr) {
         return 0;
     }
-    Cage* start = first;
-    Cage* end = first->prev;
-    return countCages(start, end);
+    return countCages(first);
 }
 
 int Train::getOpCount() {
     return countOp;
 }
 
-int Train::countCages(Cage* start, Cage* end) {
+int Train::countCages(Cage* start) {
+    if (start == nullptr) {
+        return 0;
+    }
     int length = 1;
     Cage* current = start->next;
-    countOp++;
-    while (current != end) {
+    while (current != start) {
         length++;
         current = current->next;
-        countOp++;
     }
-    countOp++;
     return length;
 }
