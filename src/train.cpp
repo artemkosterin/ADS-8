@@ -42,12 +42,16 @@ int Train::getLength() {
     }
 
     Cage* currentCage = first;
-    currentCage->light = true;
-    int length = 1;
-    int steps = 1;
+    int length = 0;
+    do {
+        length++;
+        currentCage->light = true;
+        currentCage = currentCage->next;
+    } while (currentCage != first);
 
+    currentCage = first;
     while (currentCage->light) {
-        int cagesInLoop = 1;
+        int cagesInLoop = 0;
         currentCage = currentCage->next;
 
         while (!currentCage->light) {
@@ -57,7 +61,6 @@ int Train::getLength() {
 
         currentCage->light = false;
         countOp += 2 * cagesInLoop;
-        length = cagesInLoop;
     }
 
     return length;
