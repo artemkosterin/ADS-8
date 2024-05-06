@@ -37,13 +37,13 @@ int Train::getLength() {
     }
     int length = 1;
     Cage* current = first->next;
-    countOp += 2;
+    countOp++;
     while (current != first) {
         length++;
         current = current->next;
         countOp += 2;
     }
-    countOp += 2;
+    countOp++;
     return length;
 }
 
