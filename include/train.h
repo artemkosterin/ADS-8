@@ -14,9 +14,13 @@ class Train {
 
  public:
     Train();
+    ~Train();
     void addCage(bool light);
     int getLength();
     int getOpCount();
+
+ private:
+    int countCages(Cage* start, Cage* end);
 };
 
 #endif // INCLUDE_TRAIN_H_
