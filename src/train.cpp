@@ -2,70 +2,44 @@
 #include "train.h"
 
 Train::Train() {
-    countOp = 0;
-    first = nullptr;
-}
-
-Train::~Train() {
-    if (first != nullptr) {
-        Cage* current = first->next;
-        while (current != first) {
-            Cage* next = current->next;
-            delete current;
-            current = next;
-        }
-        delete first;
-    }
+  countOp = 0;
+  first = nullptr;
 }
 
 void Train::addCage(bool cond) {
-    if (!first) {
-        Cage* newCage = new Cage;
-        newCage->light = cond;
-        newCage->next = newCage;
-        newCage->prev = newCage;
-        first = newCage;
-    } else {
-        Cage* lastCage = first->prev;
-        Cage* newCage = new Cage;
-        newCage->light = cond;
-        newCage->next = first;
-        newCage->prev = lastCage;
-        lastCage->next = newCage;
-        first->prev = newCage;
-    }
+  if (!first) {
+    Cage* newCage = new Cage;
+    newCage->light = cond;
+    newCage->next = newCage;
+    newCage->prev = newCage;
+    first = newCage;
+  } else {
+    Cage* copyFirst = first;
+    Cage* newCage = new Cage;
+    newCage->light = cond;
+    newCage->next = first;
+    newCage->prev = first->prev;
+    first->prev->next = newCage;
+    first->prev = newCage;
+  }
 }
 
 int Train::getLength() {
-    if (!first) {
-        return 0;
+  first->light = true;
+  Cage* copyfirst = first;
+  int k = 1;
+  int cages = 1;
+  while (first->light) {
+    cages = 1;
+    copyfirst = first->next;
+    while (!copyfirst->light) {
+      copyfirst = copyfirst->next;
+      cages += 1;
     }
-
-    Cage* currentCage = first;
-    int length = 0;
-    do {
-        length++;
-        currentCage->light = true;
-        currentCage = currentCage->next;
-    } while (currentCage != first);
-
-    currentCage = first;
-    while (currentCage->light) {
-        int cagesInLoop = 0;
-        currentCage = currentCage->next;
-
-        while (!currentCage->light) {
-            currentCage = currentCage->next;
-            cagesInLoop++;
-        }
-
-        currentCage->light = false;
-        countOp += 2 * cagesInLoop;
-    }
-
-    return length;
+    copyfirst->light = false;
+    countOp += 2 * cages;
+  }
+  return cages;
 }
 
-int Train::getOpCount() {
-    return countOp;
-}
+int Train::getOpCount() { return countOp; }
