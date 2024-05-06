@@ -32,23 +32,20 @@ void Train::addCage(bool light) {
 }
 
 int Train::getLength() {
-    if (first == nullptr) {
-        return 0;
-    }
-    return countCages(first);
+    return countCages();
 }
 
 int Train::getOpCount() {
     return countOp;
 }
 
-int Train::countCages(Cage* start) {
-    if (start == nullptr) {
+int Train::countCages() {
+    if (first == nullptr) {
         return 0;
     }
     int length = 1;
-    Cage* current = start->next;
-    while (current != start) {
+    Cage* current = first->next;
+    while (current != first) {
         length++;
         current = current->next;
     }
