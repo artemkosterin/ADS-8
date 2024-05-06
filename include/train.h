@@ -3,7 +3,7 @@
 #define INCLUDE_TRAIN_H_
 
 class Train {
- private:
+private:
     struct Cage {
         bool light;
         Cage* next;
@@ -11,9 +11,8 @@ class Train {
     };
     int countOp;
     Cage* first;
-    bool isFirstCageAdded;
 
- public:
+public:
     Train();
     void addCage(bool light);
     int getLength();
