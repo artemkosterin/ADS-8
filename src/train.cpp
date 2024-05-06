@@ -43,7 +43,6 @@ int Train::getLength() {
         current = current->next;
         countOp += 2;
     }
-    countOp++;
     return length;
 }
 
