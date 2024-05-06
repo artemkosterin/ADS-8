@@ -37,12 +37,13 @@ int Train::getLength() {
     }
     int length = 1;
     Cage* current = first->next;
-    countOp += 2;
+    countOp += 2; // Добавляем 2 шага для входа и выхода из первого вагона
     while (current != first) {
         length++;
         current = current->next;
-        countOp += 2;
+        countOp += 2; // Добавляем 2 шага для перехода из вагона в вагон и обратно
     }
+    countOp += 2; // Добавляем 2 шага для возвращения в исходный вагон
     return length;
 }
 
