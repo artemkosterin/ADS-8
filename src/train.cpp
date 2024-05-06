@@ -6,6 +6,18 @@ Train::Train() {
     first = nullptr;
 }
 
+Train::~Train() {
+    if (first != nullptr) {
+        Cage* current = first->next;
+        while (current != first) {
+            Cage* next = current->next;
+            delete current;
+            current = next;
+        }
+        delete first;
+    }
+}
+
 void Train::addCage(bool cond) {
     if (!first) {
         Cage* newCage = new Cage;
@@ -49,4 +61,8 @@ int Train::getLength() {
     }
 
     return length;
+}
+
+int Train::getOpCount() {
+    return countOp;
 }
